@@ -1,5 +1,9 @@
 extends Spatial
 
+export(PackedScene) var sceneHouseBase
+export(PackedScene) var sceneHouseLogs
+export(PackedScene) var sceneHouseRoof
+
 var craft_map = []
 var craft_map_dimension := 10
 var length := 1
@@ -17,37 +21,49 @@ func _init():
 func _ready():
 	$house_roof_init.translation = Vector3(int($house_roof_init.translation.x), int($house_roof_init.translation.y) , int($house_roof_init.translation.z))
 	$house_roof_init.positionInArray = Vector3(craft_map_dimension /2 , 0 , craft_map_dimension/2)
-	pass
-
-func WaveFunctionCollapse():
+	var init_house_part_position : Vector3 = $house_roof_init.positionInArray
+	#assign the instance to its respective position in the craft_map array
+	craft_map[init_house_part_position.x][init_house_part_position.y][init_house_part_position.z] = $house_roof_init 
+	
 	pass
 
 # 1=right,2 = left , 3 = front , 4 = back , 5 = up , 6 = down
-func AddPart( clicked_node, direction_enum , dir : Vector3 ):
-	var assignedPos : Vector3 = clicked_node.positionInArray + dir
-	
-	var assignedPart = 2
+func AddPart( clicked_node, direction_enum , dir : Vector3 , spawn_position : Vector3):
+	var assignedPosIndex : Vector3 = clicked_node.positionInArray + dir
 	# check bounday condition
-	if (assignedPos.x < 0 or assignedPos.y < 0 or assignedPos.z < 0 or
-	assignedPos.x >= craft_map_dimension or assignedPos.y >= craft_map_dimension or assignedPos.z >= craft_map_dimension
+	if (assignedPosIndex.x < 0 or assignedPosIndex.y < 0 or assignedPosIndex.z < 0 or
+	assignedPosIndex.x >= craft_map_dimension or assignedPosIndex.y >= craft_map_dimension or assignedPosIndex.z >= craft_map_dimension
 		):
 		return
 		pass
+	var tmpNode = sceneHouseBase.instance()
+	add_child(tmpNode)
+	tmpNode.translation = spawn_position
+	tmpNode.positionInArray = assignedPosIndex
+
+	WaveFunctionCollapse(assignedPosIndex)
+	pass
+
+func WaveFunctionCollapse(assignedPosIndex):
+	var assignedPart = 1
 	
-	var right = assignedPos + Vector3(1,0,0)
-	var left = assignedPos + Vector3(-1,0,0)
-	var front = assignedPos + Vector3(0,0,1)
-	var back = assignedPos + Vector3(0,0,-1)
-	var up = assignedPos + Vector3(0,1,0)
-	var down = assignedPos + Vector3(0,-1,0)
+	var right = assignedPosIndex + Vector3(1,0,0)
+	var left = assignedPosIndex + Vector3(-1,0,0)
+	var front = assignedPosIndex + Vector3(0,0,1)
+	var back = assignedPosIndex + Vector3(0,0,-1)
+	var up = assignedPosIndex + Vector3(0,1,0)
+	var down = assignedPosIndex + Vector3(0,-1,0)
 	
 	if (craft_map[up.x][up.y][up.z] == -1): # nothing above
 		assignedPart = 4 # roof
-		if (craft_map[down.x][down.y][down.z] == -1): # if also nothing below then wave function collapse
-			WaveFunctionCollapse()
+		if (craft_map[down.x][down.y][down.z] != -1): # if something below then 
+			
 			pass
 		pass
-		
+	pass
+
+func SwapBaseToRoof():
+	
 	pass
 
 func init_craft_map():

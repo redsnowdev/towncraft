@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://models/house_base.material" type="Material" id=1]
+[ext_resource path="res://Scenes/house/house_part.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "house_base_Cube"
@@ -42,6 +43,8 @@ flags_unshaded = true
 albedo_color = Color( 0, 0, 0, 1 )
 
 [node name="house_logs" type="Spatial"]
+script = ExtResource( 2 )
+part = 3
 
 [node name="Cube001" type="MeshInstance" parent="."]
 transform = Transform( 0.302, 0, 0, 0, 1, 0, 0, 0, 0.253, 0.705466, 0, 0 )
@@ -51,11 +54,9 @@ material/0 = SubResource( 5 )
 [node name="StaticBody" type="StaticBody" parent="Cube001"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube001/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cube001"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 

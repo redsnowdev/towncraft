@@ -42,7 +42,7 @@ albedo_color = Color( 0, 0, 0, 1 )
 
 [node name="house_roof" type="Spatial"]
 script = ExtResource( 2 )
-part = 3
+part = 4
 
 [node name="Cube001" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

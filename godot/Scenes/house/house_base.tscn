@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://models/house_base.material" type="Material" id=1]
+[ext_resource path="res://Scenes/house/house_part.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "house_base_Cube"
@@ -41,7 +42,11 @@ surfaces/0 = {
 flags_unshaded = true
 albedo_color = Color( 0, 0, 0, 1 )
 
+[sub_resource type="BoxShape" id=6]
+
 [node name="house_base" type="Spatial"]
+script = ExtResource( 2 )
+part = 2
 
 [node name="Cube001" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
@@ -55,3 +60,31 @@ shape = SubResource( 2 )
 [node name="MeshInstance" type="MeshInstance" parent="Cube001"]
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
+
+[node name="ClickArea" type="Area" parent="Cube001"]
+
+[node name="CollisionShape_right" type="CollisionShape" parent="Cube001/ClickArea"]
+transform = Transform( 0.1, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1.05556, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape_left" type="CollisionShape" parent="Cube001/ClickArea"]
+transform = Transform( 0.1, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -1.02702, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape_front" type="CollisionShape" parent="Cube001/ClickArea"]
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.1, 0, 0, 1.00899 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape_back" type="CollisionShape" parent="Cube001/ClickArea"]
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.1, 0, 0, -1.02381 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape_up" type="CollisionShape" parent="Cube001/ClickArea"]
+transform = Transform( 0.9, 0, 0, 0, 0.1, 0, 0, 0, 0.9, 0, 1.03121, 0 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape_down" type="CollisionShape" parent="Cube001/ClickArea"]
+transform = Transform( 0.9, 0, 0, 0, 0.1, 0, 0, 0, 0.9, 0, -0.985171, 0 )
+shape = SubResource( 6 )
+
+[connection signal="input_event" from="Cube001/ClickArea" to="." method="_on_AreaRight_input_event"]

@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/TownCraft/TownCraft.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/house/house_roof.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/house/house_logs.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/house/house_base.tscn" type="PackedScene" id=4]
 
 [node name="TownCraft" type="Spatial"]
 script = ExtResource( 1 )
+sceneHouseBase = ExtResource( 4 )
+sceneHouseLogs = ExtResource( 3 )
+sceneHouseRoof = ExtResource( 2 )
 
 [node name="house_roof_init" parent="." instance=ExtResource( 2 )]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/ground/ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/house/house_base.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/TownCraft/TownCraft.tscn" type="PackedScene" id=4]
+
+[node name="Main" type="Spatial"]
+
+[node name="ground" parent="." instance=ExtResource( 1 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.40971, 4.64232, 0 )
+
+[node name="house_base" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0406036, 0 )
+visible = false
+
+[node name="TownCraft" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13365, 0 )
